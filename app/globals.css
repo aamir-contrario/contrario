@@ -33,6 +33,17 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  .tilt-wrap > * {
+    transform: none !important;
+  }
+}
+
 .grain-overlay {
   pointer-events: none;
   position: fixed;
@@ -45,10 +56,17 @@ body {
 }
 
 .glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .text-gradient-violet {
@@ -58,9 +76,103 @@ body {
   color: transparent;
 }
 
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.section-label::before,
+.section-label::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 2.5rem;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+}
+
+.section-label-solo::before {
+  display: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(100deg, #f4f2ff 30%, #a78bfa 45%, #22d3ee 50%, #f4f2ff 65%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+.shimmer-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(167, 139, 250, 0.25) 48%, rgba(34, 211, 238, 0.25) 52%, transparent 70%);
+  background-size: 250% 100%;
+  animation: shimmer 4.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: #fff;
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+.glow-pulse {
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker-scroll 38s linear infinite;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #02020a; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #22d3ee);
+  border-radius: 9999px;
+}
+
 ::selection {
   background: rgba(139, 92, 246, 0.35);
   color: #fff;
+}
+
+.tilt-wrap {
+  perspective: 1200px;
 }
 
 @media (prefers-reduced-motion: reduce) {
